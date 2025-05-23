@@ -13,9 +13,9 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
     HomePage(),
-    // ExplorePage(),
+    ExplorePage(),
     HomePage(),
-    // ExplorePage(),
+    ExplorePage(),
   ];
   @override
   Widget build(BuildContext context) {
