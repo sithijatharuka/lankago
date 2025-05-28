@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/Explore/presentation/pages/explore_page.dart';
-import 'package:lankago/features/home/presentation/pages/home_page.dart';
-import 'package:lankago/main_screen.dart';
+import 'package:lankago/shared/layouts/main_screen.dart';
 
 void main() {
   runApp(const MyApp());

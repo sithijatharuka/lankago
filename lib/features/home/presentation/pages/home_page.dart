@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lankago/features/Explore/presentation/pages/explore_page.dart';
+import 'package:lankago/features/Profile/presentation/profile_page.dart';
 import 'package:lankago/features/home/presentation/widgets/alert_card_section.dart';
 import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/home/presentation/widgets/current_location.dart';
@@ -18,7 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -48,9 +48,16 @@ class _HomePageState extends State<HomePage> {
               width: 40,
               height: 40,
               margin: EdgeInsets.only(right: 16),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  'https://avatars.githubusercontent.com/u/57886706?v=4',
+              child: GestureDetector(
+                onTap:
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    ),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    'https://avatars.githubusercontent.com/u/57886706?v=4',
+                  ),
                 ),
               ),
             ),
@@ -83,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 20),
 
                 // Alerts and Experiences buttons
-                alertCardSection(),
+                AlertCardSection(),
 
                 SizedBox(height: 30),
 
