@@ -51,67 +51,68 @@ class ProfilePage extends StatelessWidget {
             ),
 
             // Bottom section with app info and sign out
-            Column(
-              children: [
-                // App info
-                const Text(
-                  'LankaGo v1.0.0',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  'Developed by Sithija Tharuka',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  '© 2025 All Rights Reserved',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Sign Out Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _showSignOutDialog(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF5722),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 2,
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.logout, size: 20),
-                        SizedBox(width: 8),
-                        Text(
-                          'Sign Out',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            buildAppDetails(context),
           ],
         ),
       ),
+    );
+  }
+
+  Column buildAppDetails(BuildContext context) {
+    return Column(
+      children: [
+        // App info
+        const Text(
+          'LankaGo v1.0.0',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          'Developed by Sithija Tharuka',
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+        const SizedBox(height: 4),
+        const Text(
+          '© 2025 All Rights Reserved',
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
+
+        const SizedBox(height: 32),
+
+        // Sign Out Button
+        SizedBox(
+          width: double.infinity,
+          height: 56,
+          child: ElevatedButton(
+            onPressed: () {
+              _showSignOutDialog(context);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFF5722),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 2,
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.logout, size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'Sign Out',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

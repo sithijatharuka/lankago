@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/Explore/presentation/pages/explore_page.dart';
 import 'package:lankago/features/Profile/presentation/profile_page.dart';
 import 'package:lankago/features/home/presentation/widgets/alert_card_section.dart';
 import 'package:lankago/features/home/presentation/widgets/button.dart';
@@ -110,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 20),
 
                 // Ask Lanka Section
-                planMyTripButton(),
+                planMyTripButton(context),
               ],
             ),
           ),
