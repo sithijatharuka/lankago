@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lankago/features/alert/presentation/pages/alert_page.dart';
 
 class AlertCardSection extends StatelessWidget {
@@ -12,11 +13,7 @@ class AlertCardSection extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               // Navigate to the alerts page
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AlertPage()),
-              );
+              context.pushNamed('/alerts');
             },
             child: Container(
               padding: EdgeInsets.all(16),

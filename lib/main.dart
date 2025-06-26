@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/auth/presentation/pages/login_page.dart';
+import 'package:lankago/routes/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginPage());
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
+    );
   }
 }

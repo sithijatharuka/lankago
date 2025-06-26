@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lankago/features/home/presentation/pages/home_page.dart';
 import 'package:lankago/shared/layouts/main_screen.dart';
 
@@ -164,10 +165,7 @@ class LoginPage extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
-                  );
+                  context.goNamed('/home');
                 },
                 child: const Text('OK'),
               ),
