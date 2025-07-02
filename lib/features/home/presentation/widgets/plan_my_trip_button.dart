@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lankago/features/TripPlanner/presentation/pages/trip_planner.dart';
 
 GestureDetector planMyTripButton(BuildContext context) {
   return GestureDetector(
-    onTap:() {
-      Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TripPlanner()),
-              );
+    onTap: () {
+      context.pushNamed('/planTrips');
     },
     child: Container(
       padding: EdgeInsets.all(16),
@@ -20,8 +18,15 @@ GestureDetector planMyTripButton(BuildContext context) {
           Container(
             width: 50,
             height: 50,
-            decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
-            child: Icon(Icons.chat_bubble_outline, color: Colors.white, size: 24),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.chat_bubble_outline,
+              color: Colors.white,
+              size: 24,
+            ),
           ),
           SizedBox(width: 16),
           Expanded(
