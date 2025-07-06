@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/profile/presentation/profile_page.dart';
 import 'package:lankago/features/home/presentation/widgets/alert_card_section.dart';
-import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/home/presentation/widgets/current_location.dart';
 import 'package:lankago/features/home/presentation/widgets/featured_destination_card.dart';
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
@@ -69,22 +69,22 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Search Bar
-                searchBar(),
+                CustomSearchBar(),
 
                 SizedBox(height: 20),
 
                 // Current Location
-                currentLocationSection(),
+                CurrentLocationSection(),
 
                 SizedBox(height: 30),
 
                 // Featured Destinations
-                headingText('Featured Destinations'),
+                HeadingText(text: 'Featured Destinations'),
 
                 SizedBox(height: 16),
 
                 // Featured destination card
-                featuredCard(),
+                FeaturedCard(),
 
                 SizedBox(height: 20),
 
@@ -94,22 +94,26 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 30),
 
                 // Popular Adventures
-                headingText('Popular Adventures in Sri Lanka'),
+                HeadingText(text: 'Popular Adventures in Sri Lanka'),
 
                 SizedBox(height: 16),
 
                 // Adventure List
-                adventureList(),
+                AdventureList(),
 
                 SizedBox(height: 30),
 
                 // Plan My Trip Button
-                button(),
+                CustomButton(
+                  onPressed: () {
+                    print('Button Pressed');
+                  },
+                ),
 
                 SizedBox(height: 20),
 
                 // Ask Lanka Section
-                planMyTripButton(context),
+                PlanMyTripButton(),
               ],
             ),
           ),

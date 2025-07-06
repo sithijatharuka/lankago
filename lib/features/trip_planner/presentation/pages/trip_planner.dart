@@ -40,7 +40,7 @@ class _TripPlannerState extends State<TripPlanner> {
                 'Trip Name',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
               ),
-              buildTextField(
+              CustomTextField(
                 hint: 'Search',
                 controller: _tripNameController,
                 icon: Icons.search,
@@ -49,7 +49,7 @@ class _TripPlannerState extends State<TripPlanner> {
                 'Date Range',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
               ),
-              buildTextField(
+              CustomTextField(
                 hint: 'Date Range',
                 controller: _destinationController,
                 icon: Icons.search,
@@ -58,23 +58,23 @@ class _TripPlannerState extends State<TripPlanner> {
                 'Destination',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
               ),
-              buildTextField(
+              CustomTextField(
                 hint: 'Date Range',
                 controller: _destinationController,
                 icon: Icons.search,
               ),
-              buildGenAiButton(),
-              headingText('Daily Planner'),
+              GenAiButton(),
+              HeadingText(text: 'Daily Planner'),
 
-              buildDailyPlanner(),
+              DailyPlanner(),
 
-              headingText('Budget Estimator'),
-              buildBudgetCard(),
+              HeadingText(text: 'Budget Estimator'),
+              BudgetCard(),
 
-              headingText('Packing List'),
-              buildPackingList(context),
-              buildSaveButton(),
-              buildShareButton(),
+              HeadingText(text: 'Packing List'),
+              PackingList(),
+              SaveButton(),
+              ShareButton(),
             ],
           ),
         ),

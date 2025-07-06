@@ -140,10 +140,10 @@ class ExplorePage extends StatelessWidget {
               ),
 
               // Search bar
-              searchBar(),
+              CustomSearchBar(),
 
               // Current location section
-              currentLocationSection(),
+              CurrentLocationSection(),
 
               // Featured image banner
               CustomMap(),
@@ -173,7 +173,7 @@ class ExplorePage extends StatelessWidget {
               ),
 
               // Top Picks section
-              headingText('Top Picks for You'),
+              HeadingText(text: 'Top Picks for You'),
 
               SizedBox(
                 height: 220,
@@ -184,15 +184,15 @@ class ExplorePage extends StatelessWidget {
                   separatorBuilder:
                       (context, index) => const SizedBox(width: 16),
                   itemBuilder: (context, index) {
-                    return SizedBox(width: 280, child: featuredCard());
+                    return SizedBox(width: 280, child: FeaturedCard());
                   },
                 ),
               ),
 
               // Hidden Gems section
-              headingText('Hidden Gems Nearby'),
+              HeadingText(text: 'Hidden Gems Nearby'),
 
-              adventureList(),
+              AdventureList(),
             ],
           ),
         ),

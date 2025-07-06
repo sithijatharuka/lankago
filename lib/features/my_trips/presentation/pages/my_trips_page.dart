@@ -29,7 +29,7 @@ class MyTripsPage extends StatelessWidget {
           spacing: 15,
           children: [
             // Search Bar
-            searchBar(),
+            CustomSearchBar(),
             // Trip List
             Expanded(
               child: ListView(

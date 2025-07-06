@@ -81,8 +81,9 @@ class AlertPage extends StatelessWidget {
                   child: Column(
                     spacing: 15,
                     children: [
-                      searchBar(),
+                      CustomSearchBar(),
                       CustomTabBar(),
+                      //Alert Cards
                       AlertCard(),
                     ],
                   ),

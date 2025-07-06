@@ -48,7 +48,7 @@ class ReportLiveAlertScreen extends StatelessWidget {
                   );
                 }),
               ),
-              TextField(          
+              TextField(
                 maxLines: 5,
                 decoration: InputDecoration(
                   hintText: "Describe what's happening...",
@@ -57,14 +57,13 @@ class ReportLiveAlertScreen extends StatelessWidget {
                     fontSize: 16,
                   ),
                   border: OutlineInputBorder(
-                    
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(color: Color(0xff0066CC)),
                   ),
                   contentPadding: EdgeInsets.all(16),
                 ),
               ),
-              headingText('Location'),
+              HeadingText(text: 'Location'),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 160,
