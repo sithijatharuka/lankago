@@ -110,7 +110,7 @@ import 'package:lankago/features/home/presentation/widgets/featured_destination_
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
 import 'package:lankago/features/home/presentation/widgets/popular_adv_item_list.dart';
 import 'package:lankago/features/home/presentation/widgets/search_bar.dart';
-import 'package:lankago/shared/widgets/app_bar.dart';
+import 'package:lankago/core/widgets/app_bar.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});

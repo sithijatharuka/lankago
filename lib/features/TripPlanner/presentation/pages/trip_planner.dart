@@ -8,7 +8,7 @@ import 'package:lankago/features/TripPlanner/presentation/widgets/share_button.d
 import 'package:lankago/features/TripPlanner/presentation/widgets/text_feild.dart';
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
 import 'package:lankago/features/home/presentation/widgets/search_bar.dart';
-import 'package:lankago/shared/widgets/app_bar.dart';
+import 'package:lankago/core/widgets/app_bar.dart';
 
 class TripPlanner extends StatefulWidget {
   const TripPlanner({super.key});

@@ -3,7 +3,7 @@ import 'package:lankago/features/TripPlanner/presentation/pages/trip_planner.dar
 import 'package:lankago/features/alert/presentation/pages/alert_page.dart';
 import 'package:lankago/features/auth/presentation/pages/login_page.dart';
 import 'package:lankago/features/home/presentation/pages/home_page.dart';
-import 'package:lankago/shared/layouts/main_screen.dart';
+import 'package:lankago/core/widgets/main_screen.dart';
 
 final router = GoRouter(
   routes: [

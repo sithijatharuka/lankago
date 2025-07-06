@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/shared/widgets/app_bar.dart';
+import 'package:lankago/core/widgets/app_bar.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

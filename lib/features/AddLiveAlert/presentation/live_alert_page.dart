@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
-import 'package:lankago/shared/widgets/app_bar.dart';
+import 'package:lankago/core/widgets/app_bar.dart';
 
 class ReportLiveAlertScreen extends StatelessWidget {
   const ReportLiveAlertScreen({super.key});
