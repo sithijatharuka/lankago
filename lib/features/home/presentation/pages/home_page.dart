@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/Profile/presentation/profile_page.dart';
+import 'package:lankago/features/profile/presentation/profile_page.dart';
 import 'package:lankago/features/home/presentation/widgets/alert_card_section.dart';
 import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/home/presentation/widgets/current_location.dart';

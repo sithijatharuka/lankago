@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/TripPlanner/presentation/pages/trip_planner.dart';
+import 'package:lankago/features/trip_planner/presentation/pages/trip_planner.dart';
 
 FloatingActionButton buildFloatingButton(BuildContext context) {
   return FloatingActionButton(

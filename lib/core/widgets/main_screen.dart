@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/Explore/presentation/pages/explore_page.dart';
-import 'package:lankago/features/MyTrips/presentation/pages/my_trips_page.dart';
-import 'package:lankago/features/TripPlanner/presentation/pages/trip_planner.dart';
+import 'package:lankago/features/explore/presentation/pages/explore_page.dart';
+import 'package:lankago/features/my_trips/presentation/pages/my_trips_page.dart';
+import 'package:lankago/features/trip_planner/presentation/pages/trip_planner.dart';
 import 'package:lankago/features/home/presentation/pages/home_page.dart';
 
 class MainScreen extends StatefulWidget {

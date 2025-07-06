@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/MyTrips/presentation/widgets/floating_button.dart';
-import 'package:lankago/features/MyTrips/presentation/widgets/trip_card.dart';
-import 'package:lankago/features/TripPlanner/presentation/pages/trip_planner.dart';
+import 'package:lankago/features/my_trips/presentation/widgets/floating_button.dart';
+import 'package:lankago/features/my_trips/presentation/widgets/trip_card.dart';
+import 'package:lankago/features/trip_planner/presentation/pages/trip_planner.dart';
 import 'package:lankago/features/home/presentation/widgets/search_bar.dart';
 
 class MyTripsPage extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:lankago/features/TripPlanner/presentation/pages/trip_planner.dart';
+import 'package:lankago/features/trip_planner/presentation/pages/trip_planner.dart';
 import 'package:lankago/features/alert/presentation/pages/alert_page.dart';
 import 'package:lankago/features/auth/presentation/pages/login_page.dart';
 import 'package:lankago/features/home/presentation/pages/home_page.dart';

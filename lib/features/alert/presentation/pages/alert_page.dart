@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lankago/features/AddLiveAlert/presentation/live_alert_page.dart';
+import 'package:lankago/features/add_live_alert/presentation/live_alert_page.dart';
 import 'package:lankago/features/alert/presentation/widgets/alert_card.dart';
 import 'package:lankago/features/alert/presentation/widgets/tab_bar.dart';
 import 'package:lankago/features/home/presentation/widgets/search_bar.dart';

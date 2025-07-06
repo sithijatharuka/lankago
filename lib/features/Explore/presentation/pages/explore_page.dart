@@ -103,8 +103,8 @@
 ///*** */
 ///
 import 'package:flutter/material.dart';
-import 'package:lankago/features/Explore/presentation/widgets/category_chip.dart';
-import 'package:lankago/features/Explore/presentation/widgets/custom_map.dart';
+import 'package:lankago/features/explore/presentation/widgets/category_chip.dart';
+import 'package:lankago/features/explore/presentation/widgets/custom_map.dart';
 import 'package:lankago/features/home/presentation/widgets/current_location.dart';
 import 'package:lankago/features/home/presentation/widgets/featured_destination_card.dart';
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
