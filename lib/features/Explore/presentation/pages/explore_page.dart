@@ -146,7 +146,7 @@ class ExplorePage extends StatelessWidget {
               currentLocationSection(),
 
               // Featured image banner
-              customMap(),
+              CustomMap(),
 
               // Category filter chips
               SizedBox(
@@ -154,17 +154,20 @@ class ExplorePage extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    buildCategoryChip('All', isSelected: true),
+                    CategoryChip(label: 'All Alerts', isSelected: true),
                     const SizedBox(width: 12),
-                    buildCategoryChip('Beaches'),
-                    const SizedBox(width: 12),
-                    buildCategoryChip('Hiking'),
-                    const SizedBox(width: 12),
-                    buildCategoryChip('Wildlife'),
-                    const SizedBox(width: 12),
-                    buildCategoryChip('Cultural'),
-                    const SizedBox(width: 12),
-                    buildCategoryChip('Adventure'),
+                    CategoryChip(label: 'Weather'),
+
+                    //   buildCategoryChip('All', isSelected: true),
+                    //   buildCategoryChip('Beaches'),
+                    //   const SizedBox(width: 12),
+                    //   buildCategoryChip('Hiking'),
+                    //   const SizedBox(width: 12),
+                    //   buildCategoryChip('Wildlife'),
+                    //   const SizedBox(width: 12),
+                    //   buildCategoryChip('Cultural'),
+                    //   const SizedBox(width: 12),
+                    //   buildCategoryChip('Adventure'),
                   ],
                 ),
               ),
