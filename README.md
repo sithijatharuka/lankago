@@ -17,7 +17,7 @@ Your ultimate travel companion for exploring Sri Lanka. Discover hidden gems, pl
 
 - **Framework**: Flutter 3.7.2+
 - **Navigation**: GoRouter 15.2.4+
-- **State Management**: TBD
+- **State Management**: Bloc
 - **Architecture**: Feature-based clean architecture
 
 ## 📱 Screenshots
