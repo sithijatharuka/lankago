@@ -184,7 +184,11 @@ class ExplorePage extends StatelessWidget {
                   separatorBuilder:
                       (context, index) => const SizedBox(width: 16),
                   itemBuilder: (context, index) {
-                    return SizedBox(width: 280, child: FeaturedCard());
+                    return SizedBox(
+                      width: 280,
+                      // child: FeaturedCard(),
+                      child: Text("Featured Destination"),
+                    );
                   },
                 ),
               ),
@@ -192,7 +196,7 @@ class ExplorePage extends StatelessWidget {
               // Hidden Gems section
               HeadingText(text: 'Hidden Gems Nearby'),
 
-              AdventureList(),
+              // AdventureList(),
             ],
           ),
         ),

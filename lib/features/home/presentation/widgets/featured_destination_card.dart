@@ -1,7 +1,18 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class FeaturedCard extends StatelessWidget {
-  const FeaturedCard({super.key});
+  final String title;
+  final String rating;
+  final String imageUrl;
+
+  const FeaturedCard({
+    super.key,
+    required this.title,
+    required this.rating,
+    required this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,10 +21,8 @@ class FeaturedCard extends StatelessWidget {
       width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        image: const DecorationImage(
-          image: NetworkImage(
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwXCpb0Kd4KzDmdEtQsDURYNiv6mo4cCEMqQ&s',
-          ),
+        image: DecorationImage(
+          image: NetworkImage(imageUrl),
           fit: BoxFit.cover,
         ),
       ),
@@ -31,9 +40,9 @@ class FeaturedCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Sigiriya Rock',
-              style: TextStyle(
+            Text(
+              title,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -41,12 +50,12 @@ class FeaturedCard extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Row(
-              children: const [
-                Icon(Icons.star, color: Colors.yellow, size: 20),
-                SizedBox(width: 4),
+              children: [
+                const Icon(Icons.star, color: Colors.yellow, size: 20),
+                const SizedBox(width: 4),
                 Text(
-                  '4.8',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  rating,
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ],
             ),

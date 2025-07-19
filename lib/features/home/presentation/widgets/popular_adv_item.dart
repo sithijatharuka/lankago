@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class PopularAdvItem extends StatelessWidget {
   final String title;
   final String subtitle;
-  final String imageUrl;
+  final String emoji;
 
   const PopularAdvItem({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.imageUrl,
+    required this.emoji,
   });
 
   @override
@@ -22,15 +22,7 @@ class PopularAdvItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              width: 60,
-              height: 60,
-            ),
-          ),
+          Text(emoji, style: TextStyle(fontSize: 30)),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
