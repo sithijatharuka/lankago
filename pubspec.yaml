@@ -1,6 +1,6 @@
 name: lankago
 description: "Your ultimate travel companion for exploring Sri Lanka. Discover hidden gems, plan your routes, and navigate the beautiful island with ease using LankaGo - the essential app for tourists and locals alike."
-publish_to: "none" 
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -12,6 +12,8 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   go_router: ^15.2.4
+  http: ^1.4.0
+  dotenv: ^4.2.0
 
 dev_dependencies:
   flutter_test:
