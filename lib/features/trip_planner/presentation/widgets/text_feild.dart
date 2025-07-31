@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(16),
@@ -23,7 +24,7 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         style: const TextStyle(
-          fontSize: 16,
+          fontSize: 15,
           color: Color(0xFF111827),
           fontWeight: FontWeight.w500,
         ),
@@ -31,15 +32,12 @@ class CustomTextField extends StatelessWidget {
           hintText: hint,
           hintStyle: const TextStyle(
             color: Color(0xFF6B7280),
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: FontWeight.w400,
           ),
           prefixIcon: Icon(icon, color: const Color(0xFF6B7280), size: 22),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 18,
-          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 16),
         ),
       ),
     );

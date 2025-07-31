@@ -60,13 +60,22 @@
 //   );
 // }
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class BudgetCard extends StatelessWidget {
-  const BudgetCard({super.key});
+  final Map<String, dynamic> budget;
+
+  const BudgetCard({required this.budget, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final total = budget.values.fold<double>(
+      0,
+      (sum, val) => sum + (val is num ? val.toDouble() : 0),
+    );
+
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -94,8 +103,8 @@ class BudgetCard extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Total Estimated',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -104,8 +113,8 @@ class BudgetCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Rs 20,000',
-                  style: TextStyle(
+                  'Rs ${total.toStringAsFixed(0)}',
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 24,
                     color: Color(0xFFFF5722),
@@ -115,47 +124,38 @@ class BudgetCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          ..._buildBudgetItems(),
+          ..._buildBudgetItems(budget),
         ],
       ),
     );
   }
 
-  List<Widget> _buildBudgetItems() {
-    final items = [
-      {'name': 'Accommodation', 'amount': 'Rs 10,000'},
-      {'name': 'Transport', 'amount': 'Rs 5,000'},
-      {'name': 'Food & Drinks', 'amount': 'Rs 3,000'},
-      {'name': 'Activities', 'amount': 'Rs 2,000'},
-    ];
-
-    return items
-        .map(
-          (item) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  item['name']!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF6B7280),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  item['amount']!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF111827),
-                  ),
-                ),
-              ],
+  List<Widget> _buildBudgetItems(Map<String, dynamic> budget) {
+    return budget.entries.map((entry) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              entry.key,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF6B7280),
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-        )
-        .toList();
+            Text(
+              'Rs ${entry.value}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF111827),
+              ),
+            ),
+          ],
+        ),
+      );
+    }).toList();
   }
 }

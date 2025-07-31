@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heroicons/heroicons.dart';
 import 'package:lankago/features/explore/presentation/pages/explore_page.dart';
 import 'package:lankago/features/my_trips/presentation/pages/my_trips_page.dart';
 import 'package:lankago/features/trip_planner/presentation/pages/trip_planner.dart';
@@ -23,23 +24,51 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Trip Planner'),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Trips'),
-        ],
+      bottomNavigationBar: SizedBox(
+        height: 65,
+        child: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.blue,
+          selectedFontSize: 12,
+          unselectedItemColor: Colors.grey,
+          items: const [
+            BottomNavigationBarItem(
+              icon: HeroIcon(
+                HeroIcons.home,
+                style: HeroIconStyle.micro,
+                size: 30,
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.explore),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: HeroIcon(
+                HeroIcons.map,
+                style: HeroIconStyle.micro,
+                size: 30,
+              ),
+              label: 'Trip Planner',
+            ),
+            BottomNavigationBarItem(
+              icon: HeroIcon(
+                HeroIcons.bookmark,
+                style: HeroIconStyle.micro,
+                size: 30,
+              ),
+              label: 'Trips',
+            ),
+          ],
+        ),
       ),
     );
   }

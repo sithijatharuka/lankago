@@ -187,6 +187,7 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lankago/ask.dart';
 import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/profile/presentation/profile_page.dart';
@@ -236,7 +237,7 @@ class _HomePageState extends State<HomePage> {
 
     try {
       final result = await askGemini(
-        '''Give me one featured travel destination in Sri Lanka colombo. Return it as JSON with:
+        '''Give me one featured travel destination in Sri Lanka kanthale. Return it as JSON with:
 {
   "title": "string",
   "rating": "float (1.0 to 5.0)",
@@ -390,8 +391,9 @@ Example:
             const SizedBox(height: 30),
 
             CustomButton(
+              label: 'Plan My Trip',
               onPressed: () {
-                print('Button Pressed');
+                context.pushNamed('/planTrips');
               },
             ),
 

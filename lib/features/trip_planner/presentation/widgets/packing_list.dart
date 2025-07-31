@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
 
 class PackingList extends StatefulWidget {
-  const PackingList({super.key});
+  final List<String> packingItems;
+
+  const PackingList({super.key, required this.packingItems});
 
   @override
   State<PackingList> createState() => _PackingListState();
 }
 
 class _PackingListState extends State<PackingList> {
-  // Checkbox states
-  bool _passportChecked = false;
-  bool _cashChecked = false;
+  late Map<String, bool> checkedItems;
+
+  @override
+  void initState() {
+    super.initState();
+    checkedItems = {for (var item in widget.packingItems) item: false};
+  }
+
+  void addItem(String newItem) {
+    setState(() {
+      checkedItems[newItem] = false;
+    });
+  }
+
+  final TextEditingController _newItemController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,71 +39,66 @@ class _PackingListState extends State<PackingList> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            Row(
-              children: [
-                Checkbox(
-                  value: _passportChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _passportChecked = value ?? false;
-                    });
-                  },
-                  activeColor: const Color(0xFFFF5722),
-                ),
-                const Text(
-                  'Passport & Travel Documents',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: _cashChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _cashChecked = value ?? false;
-                    });
-                  },
-                  activeColor: const Color(0xFFFF5722),
-                ),
-                const Text(
-                  'Cash & Cards',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              height: 42,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Add your add item logic here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                      color: Color(0xFFFF5722),
-                      width: 1.5,
+            ...checkedItems.keys.map(
+              (item) => Row(
+                children: [
+                  Checkbox(
+                    value: checkedItems[item] ?? false,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        checkedItems[item] = value ?? false;
+                      });
+                    },
+                    activeColor: const Color(0xFFFF5722),
+                  ),
+                  Expanded(
+                    child: Text(
+                      item,
+                      style: const TextStyle(fontSize: 14, color: Colors.black),
                     ),
-                    borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-                child: const Text(
-                  'Add Item',
-                  style: TextStyle(
-                    color: Color(0xFFFF5722),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                ],
               ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _newItemController,
+                    decoration: InputDecoration(
+                      hintText: 'Add item',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Color(0xFFFF5722)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_newItemController.text.trim().isNotEmpty) {
+                      addItem(_newItemController.text.trim());
+                      _newItemController.clear();
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFF5722),
+                  ),
+                  child: const Icon(Icons.add, color: Colors.white),
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _newItemController.dispose();
+    super.dispose();
   }
 }

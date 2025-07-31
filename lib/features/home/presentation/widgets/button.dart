@@ -4,11 +4,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String label;
 
-  const CustomButton({
-    super.key,
-    required this.onPressed,
-    this.label = 'Plan My Trip',
-  });
+  const CustomButton({super.key, required this.onPressed, required this.label});
 
   @override
   Widget build(BuildContext context) {
