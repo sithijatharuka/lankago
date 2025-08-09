@@ -3,465 +3,639 @@ import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
 import 'package:lankago/core/widgets/app_bar.dart';
 
-class ReportLiveAlertScreen extends StatelessWidget {
+class ReportLiveAlertScreen extends StatefulWidget {
   const ReportLiveAlertScreen({super.key});
+
+  @override
+  State<ReportLiveAlertScreen> createState() => _ReportLiveAlertScreenState();
+}
+
+class _ReportLiveAlertScreenState extends State<ReportLiveAlertScreen> {
+  String? selectedAlertType;
+  final TextEditingController _descriptionController = TextEditingController();
+  bool _isSubmitting = false;
+
+  final List<AlertType> alertTypes = [
+    AlertType(
+      'Bad Weather',
+      Icons.cloud_outlined,
+      const Color(0xFF3B82F6),
+      'Weather conditions affecting travel',
+    ),
+    AlertType(
+      'Road Block',
+      Icons.warning_amber_outlined,
+      const Color(0xFFF59E0B),
+      'Traffic or construction delays',
+    ),
+    AlertType(
+      'Thunderstorm',
+      Icons.flash_on_outlined,
+      const Color(0xFFEF4444),
+      'Severe weather warning',
+    ),
+    AlertType(
+      'Too Crowded',
+      Icons.groups_outlined,
+      const Color(0xFF8B5CF6),
+      'High visitor volume',
+    ),
+    AlertType(
+      'Emergency',
+      Icons.emergency_outlined,
+      const Color(0xFFDC2626),
+      'Urgent safety concern',
+    ),
+    AlertType(
+      'Facility Issue',
+      Icons.home_repair_service_outlined,
+      const Color(0xFF059669),
+      'Infrastructure problems',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('Report a Live Alert'),
+      backgroundColor: const Color(0xFFF8FAFB),
+      appBar: appBar('Report Live Alert'),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
-            spacing: 15,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GridView.count(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2, // Number of columns
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                children: List.generate(6, (index) {
-                  return Container(
-                    height: 56,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Color(0xffEFF6FF),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.cloud, color: Color(0xff2563EB)),
-                        SizedBox(width: 10),
-                        Text(
-                          'Bad Weather',
-                          style: TextStyle(
-                            color: Color(0xff2563EB),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ),
-              TextField(
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: "Describe what's happening...",
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 16,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Color(0xff0066CC)),
-                  ),
-                  contentPadding: EdgeInsets.all(16),
-                ),
-              ),
-              HeadingText(text: 'Location'),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 160,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf8QAFTQIZqwo9lca0AfZbr-ewC_uGY__stg&s',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff0066CC),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+              // Header Section
+              _buildHeaderSection(),
+              const SizedBox(height: 24),
 
-                  child: Text(
-                    'Submit Alert',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+              // Alert Type Selection
+              _buildAlertTypeSection(),
+              const SizedBox(height: 24),
+
+              // Description Section
+              _buildDescriptionSection(),
+              const SizedBox(height: 24),
+
+              // Location Section
+              _buildLocationSection(),
+              const SizedBox(height: 32),
+
+              // Submit Button
+              _buildSubmitButton(),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildHeaderSection() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFEF4444), Color(0xFFDC2626)],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFEF4444).withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(Icons.add_alert, color: Colors.white, size: 24),
+          ),
+          const SizedBox(width: 16),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Help Keep Travelers Safe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  'Report incidents to help other travelers',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAlertTypeSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFEF4444).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.category_outlined,
+                color: Color(0xFFEF4444),
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Text(
+              'What\'s happening?',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1F2937),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 20,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 2.5,
+            ),
+            itemCount: alertTypes.length,
+            itemBuilder: (context, index) {
+              final alertType = alertTypes[index];
+              final isSelected = selectedAlertType == alertType.name;
+
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedAlertType = alertType.name;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color:
+                        isSelected
+                            ? alertType.color.withOpacity(0.1)
+                            : const Color(0xFFF9FAFB),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isSelected ? alertType.color : Colors.transparent,
+                      width: 2,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(alertType.icon, color: alertType.color, size: 20),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          alertType.name,
+                          style: TextStyle(
+                            color: alertType.color,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDescriptionSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF3B82F6).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.description_outlined,
+                color: Color(0xFF3B82F6),
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Text(
+              'Description',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1F2937),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 20,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: TextField(
+            controller: _descriptionController,
+            maxLines: 5,
+            decoration: InputDecoration(
+              hintText: "Describe what's happening in detail...",
+              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 16),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(
+                  color: Color(0xFF3B82F6),
+                  width: 2,
+                ),
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.all(16),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLocationSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF10B981).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.location_on_outlined,
+                color: Color(0xFF10B981),
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Text(
+              'Location',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1F2937),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 20,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 180,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTf8QAFTQIZqwo9lca0AfZbr-ewC_uGY__stg&s',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 180,
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.3),
+                  ),
+                ),
+                const Positioned(
+                  top: 16,
+                  left: 16,
+                  child: Row(
+                    children: [
+                      Icon(Icons.my_location, color: Colors.white, size: 20),
+                      SizedBox(width: 8),
+                      Text(
+                        'Current Location',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 16,
+                  right: 16,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.edit_location,
+                          color: Color(0xFF10B981),
+                          size: 16,
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          'Change',
+                          style: TextStyle(
+                            color: Color(0xFF10B981),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSubmitButton() {
+    return Container(
+      width: double.infinity,
+      height: 56,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFEF4444).withOpacity(0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: _isSubmitting ? null : _handleSubmit,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFEF4444),
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          disabledBackgroundColor: Colors.grey.shade400,
+        ),
+        child:
+            _isSubmitting
+                ? const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Text(
+                      'Submitting...',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                )
+                : const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.send, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      'Submit Alert',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+      ),
+    );
+  }
+
+  void _handleSubmit() async {
+    if (selectedAlertType == null) {
+      _showSnackBar('Please select an alert type', Colors.orange);
+      return;
+    }
+
+    if (_descriptionController.text.trim().isEmpty) {
+      _showSnackBar('Please provide a description', Colors.orange);
+      return;
+    }
+
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    // Simulate API call
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      _isSubmitting = false;
+    });
+
+    _showSuccessDialog();
+  }
+
+  void _showSnackBar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    );
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF10B981).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.check_circle_outline,
+                  color: Color(0xFF10B981),
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                'Alert Submitted',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+          content: const Text(
+            'Thank you for helping keep travelers safe! Your alert has been submitted and will help other travelers in the area.',
+            style: TextStyle(
+              fontSize: 15,
+              color: Color(0xFF6B7280),
+              height: 1.5,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xFF10B981),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
+              child: const Text(
+                'Done',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _descriptionController.dispose();
+    super.dispose();
+  }
 }
 
-// import 'package:flutter/material.dart';
+class AlertType {
+  final String name;
+  final IconData icon;
+  final Color color;
+  final String description;
 
-// class ReportLiveAlertScreen extends StatefulWidget {
-//   const ReportLiveAlertScreen({super.key});
-
-//   @override
-//   State<ReportLiveAlertScreen> createState() => _ReportLiveAlertScreenState();
-// }
-
-// class _ReportLiveAlertScreenState extends State<ReportLiveAlertScreen> {
-//   String? selectedAlertType;
-//   TextEditingController descriptionController = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         leading: IconButton(
-//           icon: Icon(Icons.arrow_back, color: Colors.black),
-//           onPressed: () => Navigator.pop(context),
-//         ),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               // Title
-//               Text(
-//                 'Report a Live Alert',
-//                 style: TextStyle(
-//                   fontSize: 28,
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.black,
-//                 ),
-//               ),
-//               SizedBox(height: 30),
-
-//               // Alert Type Buttons Grid
-//               GridView.count(
-//                 crossAxisCount: 2,
-//                 shrinkWrap: true,
-//                 physics: NeverScrollableScrollPhysics(),
-//                 crossAxisSpacing: 15,
-//                 mainAxisSpacing: 15,
-//                 childAspectRatio: 2.5,
-//                 children: [
-//                   _buildAlertButton(
-//                     'Bad Weather',
-//                     Icons.cloud_outlined,
-//                     Colors.blue,
-//                     Colors.blue.shade50,
-//                   ),
-//                   _buildAlertButton(
-//                     'Road Block',
-//                     Icons.warning_outlined,
-//                     Colors.orange,
-//                     Colors.orange.shade50,
-//                   ),
-//                   _buildAlertButton(
-//                     'Thunderstorm',
-//                     Icons.thunderstorm_outlined,
-//                     Colors.red,
-//                     Colors.red.shade50,
-//                   ),
-//                   _buildAlertButton(
-//                     'Too Crowded',
-//                     Icons.groups_outlined,
-//                     Colors.amber.shade700,
-//                     Colors.amber.shade50,
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: 15),
-
-//               // Emergency Button (Full Width)
-//               Container(
-//                 width: double.infinity,
-//                 child: _buildAlertButton(
-//                   'Emergency',
-//                   Icons.circle,
-//                   Colors.red,
-//                   Colors.red.shade50,
-//                   isFullWidth: true,
-//                 ),
-//               ),
-//               SizedBox(height: 30),
-
-//               // Description TextField
-//               Container(
-//                 height: 120,
-//                 decoration: BoxDecoration(
-//                   border: Border.all(color: Colors.grey.shade300),
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: TextField(
-//                   controller: descriptionController,
-//                   maxLines: null,
-//                   expands: true,
-//                   textAlignVertical: TextAlignVertical.top,
-//                   decoration: InputDecoration(
-//                     hintText: "Describe what's happening...",
-//                     hintStyle: TextStyle(
-//                       color: Colors.grey.shade500,
-//                       fontSize: 16,
-//                     ),
-//                     border: InputBorder.none,
-//                     contentPadding: EdgeInsets.all(16),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(height: 30),
-
-//               // Location Section
-//               Text(
-//                 'Location',
-//                 style: TextStyle(
-//                   fontSize: 20,
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.black,
-//                 ),
-//               ),
-//               SizedBox(height: 15),
-
-//               // Map Container
-//               Container(
-//                 height: 200,
-//                 width: double.infinity,
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(12),
-//                   border: Border.all(color: Colors.grey.shade300),
-//                 ),
-//                 child: ClipRRect(
-//                   borderRadius: BorderRadius.circular(12),
-//                   child: Stack(
-//                     children: [
-//                       // Mock map background
-//                       Container(
-//                         color: Colors.grey.shade100,
-//                         child: CustomPaint(
-//                           painter: MapPainter(),
-//                           size: Size.infinite,
-//                         ),
-//                       ),
-//                       Center(
-//                         child: Text(
-//                           'Map Preview',
-//                           style: TextStyle(color: Colors.grey, fontSize: 16),
-//                         ),
-//                       ),
-//                       // Map pins
-//                       Positioned(
-//                         left: 60,
-//                         top: 80,
-//                         child: Icon(
-//                           Icons.location_on,
-//                           color: Colors.red,
-//                           size: 30,
-//                         ),
-//                       ),
-//                       Positioned(
-//                         right: 80,
-//                         top: 60,
-//                         child: Icon(
-//                           Icons.location_on,
-//                           color: Colors.red,
-//                           size: 30,
-//                         ),
-//                       ),
-//                       Positioned(
-//                         right: 60,
-//                         bottom: 40,
-//                         child: Icon(
-//                           Icons.location_on,
-//                           color: Colors.red,
-//                           size: 30,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(height: 15),
-
-//               // Change Location Button
-//               Center(
-//                 child: TextButton(
-//                   onPressed: () {
-//                     // Handle change location
-//                   },
-//                   child: Text(
-//                     'Change Location',
-//                     style: TextStyle(
-//                       color: Colors.blue,
-//                       fontSize: 16,
-//                       fontWeight: FontWeight.w500,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-
-//               SizedBox(height: 30),
-
-//               // Submit Button
-//               Container(
-//                 width: double.infinity,
-//                 height: 56,
-//                 child: ElevatedButton(
-//                   onPressed: () {
-//                     _showSubmitDialog();
-//                   },
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: Colors.blue,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(12),
-//                     ),
-//                   ),
-//                   child: Text(
-//                     'Submit Alert',
-//                     style: TextStyle(
-//                       color: Colors.white,
-//                       fontSize: 18,
-//                       fontWeight: FontWeight.w600,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(height: 20),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildAlertButton(
-//     String label,
-//     IconData icon,
-//     Color iconColor,
-//     Color backgroundColor, {
-//     bool isFullWidth = false,
-//   }) {
-//     bool isSelected = selectedAlertType == label;
-
-//     return GestureDetector(
-//       onTap: () {
-//         setState(() {
-//           selectedAlertType = label;
-//         });
-//       },
-//       child: Container(
-//         decoration: BoxDecoration(
-//           color: isSelected ? iconColor.withOpacity(0.1) : backgroundColor,
-//           borderRadius: BorderRadius.circular(12),
-//           border: Border.all(
-//             color: isSelected ? iconColor : Colors.transparent,
-//             width: 2,
-//           ),
-//         ),
-//         child: Padding(
-//           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//           child: Row(
-//             children: [
-//               Icon(icon, color: iconColor, size: 24),
-//               SizedBox(width: 10),
-//               Expanded(
-//                 child: Text(
-//                   label,
-//                   style: TextStyle(
-//                     color: iconColor,
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.w600,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   void _showSubmitDialog() {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text('Alert Submitted'),
-//           content: Text('Your live alert has been submitted successfully!'),
-//           actions: [
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//                 Navigator.of(context).pop();
-//               },
-//               child: Text('OK'),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     descriptionController.dispose();
-//     super.dispose();
-//   }
-// }
-
-// class MapPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint =
-//         Paint()
-//           ..color = Colors.grey.shade300
-//           ..strokeWidth = 1;
-
-//     for (int i = 0; i < size.width; i += 40) {
-//       canvas.drawLine(
-//         Offset(i.toDouble(), 0),
-//         Offset(i.toDouble(), size.height),
-//         paint,
-//       );
-//     }
-
-//     for (int i = 0; i < size.height; i += 40) {
-//       canvas.drawLine(
-//         Offset(0, i.toDouble()),
-//         Offset(size.width, i.toDouble()),
-//         paint,
-//       );
-//     }
-
-//     final parkPaint = Paint()..color = Colors.green.shade200;
-//     canvas.drawRRect(
-//       RRect.fromRectAndRadius(
-//         Rect.fromLTWH(
-//           size.width * 0.6,
-//           size.height * 0.1,
-//           size.width * 0.3,
-//           size.height * 0.25,
-//         ),
-//         Radius.circular(8),
-//       ),
-//       parkPaint,
-//     );
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-// }
+  AlertType(this.name, this.icon, this.color, this.description);
+}

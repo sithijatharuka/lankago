@@ -333,13 +333,7 @@ Example:
             height: 40,
             margin: const EdgeInsets.only(right: 16),
             child: GestureDetector(
-              onTap:
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    ),
-                  ),
+              onTap: () => context.pushNamed('/profile'),
               child: const CircleAvatar(
                 backgroundImage: NetworkImage(
                   'https://avatars.githubusercontent.com/u/57886706?v=4',

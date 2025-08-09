@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lankago/features/tripDetailsPage/presentation/pages/trip_details_page.dart';
 
 enum TripStatus { upcoming, completed, canceled }
 
@@ -40,13 +41,13 @@ class TripCard extends StatelessWidget {
           buildDate(),
           const SizedBox(height: 16),
           // Bottom row with people count and view details
-          buildBottomRow(),
+          buildBottomRow(context),
         ],
       ),
     );
   }
 
-  Row buildBottomRow() {
+  Row buildBottomRow(context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -62,7 +63,18 @@ class TripCard extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            // Handle view details tap
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => const TripDetailsPage(
+                      tripName: 'Family Adventure 2025',
+                      destination: 'Ella, Sri Lanka',
+                      dates: 'July 5 - July 10, 2025',
+                      peopleCount: 3,
+                    ),
+              ),
+            );
           },
           child: Row(
             children: [
