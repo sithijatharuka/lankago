@@ -12,10 +12,10 @@ class CustomOverlay extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [
             Colors.black.withOpacity(
-              0.6,
+              0.5,
             ), // Increased opacity for darker overlay
             Colors.black.withOpacity(
-              0.7,
+              0.5,
             ), // Increased opacity for darker overlay
           ],
         ),
