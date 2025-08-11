@@ -18,7 +18,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar("Explore Sri Lanka"),
-      backgroundColor: const Color(0xFFF8FAFB),
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           DistrictDropdown(

@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
     ExplorePage(),
     TripPlanner(),
     // MyTripsPage(),
-    UpcomingTrips(),
+    MyTrips(),
   ];
   @override
   Widget build(BuildContext context) {

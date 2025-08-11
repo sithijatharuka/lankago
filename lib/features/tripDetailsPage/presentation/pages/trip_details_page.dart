@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lankago/core/widgets/app_bar.dart';
 
 class TripDetailsPage extends StatelessWidget {
   final String tripName;
@@ -18,13 +19,7 @@ class TripDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFB),
-      appBar: AppBar(
-        title: const Text('Trip Details'),
-        backgroundColor: Colors.white,
-        foregroundColor: const Color(0xFF1F2937),
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Color(0xFF1F2937)),
-      ),
+      appBar: appBar('Trip Details'),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
@@ -135,9 +130,6 @@ class TripDetailsPage extends StatelessWidget {
           ),
 
           const SizedBox(height: 30),
-
-          // (Optional) Add Future Sections
-          // You can include sections like expenses, photo gallery, map, etc.
         ],
       ),
     );

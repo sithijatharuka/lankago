@@ -35,4 +35,6 @@ flutter:
     - assets/images/logos/
     - assets/images/backgrounds/
     - assets/images/icons/
+    - assets/data/popular_adventures.json
+    - assets/data/featured_places.json
     - .env

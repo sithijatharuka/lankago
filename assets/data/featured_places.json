@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Sigiriya Rock Fortress",
+    "rating": 4.8,
+    "imageUrl": "assets/images/backgrounds/Sigiriya-Rock-Sri-Lanka.jpg"
+  },
+  {
+    "title": "Ella Gap",
+    "rating": 4.7,
+    "imageUrl": "assets/images/backgrounds/ella.jpg"
+  },
+  {
+    "title": "Adam's Peak (Sri Pada)",
+    "rating": 4.9,
+    "imageUrl": "assets/images/backgrounds/adams.jpeg"
+  },
+  {
+    "title": "Yala National Park",
+    "rating": 4.6,
+    "imageUrl": "assets/images/backgrounds/yala.jpeg"
+  },
+  {
+    "title": "Nuwara Eliya",
+    "rating": 4.5,
+    "imageUrl": "assets/images/backgrounds/nuwara.jpg"
+  }
+]

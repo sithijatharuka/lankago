@@ -1,51 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:lankago/features/home/presentation/widgets/popular_adv_item_list.dart';
 
-class PopularAdvItem extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String emoji;
+class AdventureList extends StatelessWidget {
+  final List<Map<String, dynamic>> adventures;
 
-  const PopularAdvItem({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.emoji,
-  });
+  const AdventureList({super.key, required this.adventures});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFB),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Text(emoji, style: TextStyle(fontSize: 30)),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: adventures.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 12),
+      itemBuilder: (context, index) {
+        final adventure = adventures[index];
+        return PopularAdvItem(
+          title: adventure['title'] ?? 'Unknown',
+          subtitle: adventure['subtitle'] ?? '',
+          emoji: adventure['emoji'],
+        );
+      },
     );
   }
 }

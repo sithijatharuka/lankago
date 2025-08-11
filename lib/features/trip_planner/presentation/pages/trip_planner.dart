@@ -9,13 +9,40 @@ import 'package:lankago/features/trip_planner/presentation/widgets/district_sele
 import 'package:lankago/features/trip_planner/presentation/widgets/generate_button.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/header_section.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/packing_list.dart';
-import 'package:lankago/features/trip_planner/presentation/widgets/save_button.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/section_title.dart';
-import 'package:lankago/features/trip_planner/presentation/widgets/share_button.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/text_feild.dart';
 import 'package:lankago/features/home/presentation/widgets/heading_text.dart';
 import 'package:lankago/core/widgets/app_bar.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/trip_summary_card.dart';
+
+// List of Sri Lankan districts
+const List<String> sriLankanDistricts = [
+  'Colombo',
+  'Gampaha',
+  'Kalutara',
+  'Kandy',
+  'Matale',
+  'Nuwara Eliya',
+  'Galle',
+  'Matara',
+  'Hambantota',
+  'Jaffna',
+  'Kilinochchi',
+  'Mannar',
+  'Vavuniya',
+  'Mullaitivu',
+  'Batticaloa',
+  'Ampara',
+  'Trincomalee',
+  'Kurunegala',
+  'Puttalam',
+  'Anuradhapura',
+  'Polonnaruwa',
+  'Badulla',
+  'Monaragala',
+  'Ratnapura',
+  'Kegalle',
+];
 
 class TripPlanner extends StatefulWidget {
   const TripPlanner({super.key});
@@ -35,34 +62,6 @@ class _TripPlannerState extends State<TripPlanner>
   String? selectedDistrict;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
-  final List<String> sriLankanDistricts = [
-    'Ampara',
-    'Anuradhapura',
-    'Badulla',
-    'Batticaloa',
-    'Colombo',
-    'Galle',
-    'Gampaha',
-    'Hambantota',
-    'Jaffna',
-    'Kalutara',
-    'Kandy',
-    'Kegalle',
-    'Kilinochchi',
-    'Kurunegala',
-    'Mannar',
-    'Matale',
-    'Matara',
-    'Monaragala',
-    'Mullaitivu',
-    'Nuwara Eliya',
-    'Polonnaruwa',
-    'Puttalam',
-    'Ratnapura',
-    'Trincomalee',
-    'Vavuniya',
-  ];
 
   @override
   void initState() {
@@ -233,7 +232,7 @@ Only return JSON. Do not explain.
           children: [
             HeaderSection(),
             const SizedBox(height: 24),
-            _buildFormCard(),
+            formContainer(),
             const SizedBox(height: 20),
             if (selectedDistrict != null && tripDays > 0) ...[
               TripSummaryCard(tripDays: tripDays, district: selectedDistrict!),
@@ -245,21 +244,21 @@ Only return JSON. Do not explain.
               onPressed: generatePlan,
             ),
             const SizedBox(height: 20),
-            if (loading) _buildLoadingSection(),
+            if (loading) loadingSection(),
             if (response.isNotEmpty &&
                 !loading &&
                 !response.startsWith("Error")) ...[
               const SizedBox(height: 24),
-              _buildResultsSection(),
+              resultsSection(),
             ],
-            if (response.startsWith("Error")) _buildErrorSection(),
+            if (response.startsWith("Error")) errorSection(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildFormCard() {
+  Widget formContainer() {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -305,7 +304,7 @@ Only return JSON. Do not explain.
     );
   }
 
-  Widget _buildLoadingSection() {
+  Widget loadingSection() {
     return FadeTransition(
       opacity: _fadeAnimation,
       child: Container(
@@ -346,7 +345,7 @@ Only return JSON. Do not explain.
     );
   }
 
-  Widget _buildResultsSection() {
+  Widget resultsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -375,7 +374,7 @@ Only return JSON. Do not explain.
     );
   }
 
-  Widget _buildErrorSection() {
+  Widget errorSection() {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

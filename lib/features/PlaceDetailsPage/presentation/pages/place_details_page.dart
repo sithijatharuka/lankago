@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lankago/ask.dart';
-import '../widgets/details_header.dart';
+import 'package:lankago/core/widgets/app_bar.dart';
 import '../widgets/details_section.dart';
 import '../widgets/details_list_section.dart';
 
@@ -58,10 +58,7 @@ Return only JSON with fields: overview, highlights, best_time_to_visit, activiti
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.place['title'] ?? ''),
-        backgroundColor: widget.accentColor,
-      ),
+      appBar: appBar(widget.place['title'] ?? ''),
       body:
           loading
               ? const Center(child: CircularProgressIndicator())
@@ -74,7 +71,6 @@ Return only JSON with fields: overview, highlights, best_time_to_visit, activiti
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DetailsHeader(place: widget.place, details: placeDetails!),
                     DetailsSection(
                       title: "Overview",
                       content: placeDetails!['overview'] ?? '',
