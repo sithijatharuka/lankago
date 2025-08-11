@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lankago/ask.dart';
@@ -128,6 +129,8 @@ Example:
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -148,9 +151,10 @@ Example:
             margin: const EdgeInsets.only(right: 16),
             child: GestureDetector(
               onTap: () => context.pushNamed('/profile'),
-              child: const CircleAvatar(
+              child: CircleAvatar(
+                radius: 50,
                 backgroundImage: NetworkImage(
-                  'https://avatars.githubusercontent.com/u/57886706?v=4',
+                  user?.photoURL ?? 'https://via.placeholder.com/150',
                 ),
               ),
             ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lankago/ask.dart';
-import 'package:lankago/features/home/presentation/widgets/button.dart';
+import 'package:lankago/core/services/trip_service.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/budget_es_card.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/daily_planner_card.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/date_range_selector.dart';
@@ -107,6 +107,8 @@ class _TripPlannerState extends State<TripPlanner>
     }
   }
 
+  final FirestoreService _firestoreService = FirestoreService();
+
   void generatePlan() async {
     if (selectedDistrict == null || tripDays <= 0) {
       _showSnackBar(
@@ -166,6 +168,20 @@ Only return JSON. Do not explain.
         response = jsonEncode(decoded, toEncodable: (e) => e.toString());
         loading = false;
       });
+
+      // Save to Firestore
+      await _firestoreService.addTripPlan(
+        tripName:
+            _tripNameController.text.trim().isEmpty
+                ? 'My Trip'
+                : _tripNameController.text.trim(),
+        district: selectedDistrict!,
+        startDate: startDate!,
+        endDate: endDate!,
+        itinerary: decoded['itinerary'] ?? {},
+        budget: decoded['budget_lkr'] ?? {},
+        packingList: List<String>.from(decoded['packing_list'] ?? []),
+      );
 
       _showSnackBar("Trip plan generated successfully!", isError: false);
     } catch (e) {
@@ -348,13 +364,13 @@ Only return JSON. Do not explain.
         const SizedBox(height: 8),
         PackingList(packingItems: _safeDecodeList(response, 'packing_list')),
         const SizedBox(height: 32),
-        Row(
-          children: [
-            Expanded(child: SaveButton()),
-            const SizedBox(width: 12),
-            Expanded(child: ShareButton()),
-          ],
-        ),
+        // Row(
+        //   children: [
+        //     Expanded(child: SaveButton()),
+        //     const SizedBox(width: 12),
+        //     Expanded(child: ShareButton()),
+        //   ],
+        // ),
       ],
     );
   }

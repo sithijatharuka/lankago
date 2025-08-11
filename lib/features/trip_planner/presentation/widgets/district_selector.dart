@@ -34,29 +34,29 @@ class DistrictSelector extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               const Text(
-                'Choose a district in Sri Lanka',
+                'Choose a district',
                 style: TextStyle(color: Color(0xFF6B7280), fontSize: 16),
               ),
             ],
           ),
           isExpanded: true,
-          icon: const Icon(Icons.keyboard_arrow_down,
-              color: Color(0xFF6B7280)),
-          items: districts.map((String district) {
-            return DropdownMenuItem<String>(
-              value: district,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 32),
-                child: Text(
-                  district,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF1F2937),
+          icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF6B7280)),
+          items:
+              districts.map((String district) {
+                return DropdownMenuItem<String>(
+                  value: district,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 32),
+                    child: Text(
+                      district,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Color(0xFF1F2937),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          }).toList(),
+                );
+              }).toList(),
           onChanged: onChanged,
         ),
       ),

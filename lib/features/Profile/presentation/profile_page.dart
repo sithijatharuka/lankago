@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lankago/core/widgets/app_bar.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -6,6 +8,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar('Profile'),
@@ -20,16 +24,16 @@ class ProfilePage extends StatelessWidget {
                 CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
-                    'https://avatars.githubusercontent.com/u/57886706?v=4',
+                    user?.photoURL ?? 'https://via.placeholder.com/150',
                   ),
                 ),
 
                 const SizedBox(height: 24),
 
                 // Name
-                const Text(
-                  'Sithija Tharuka',
-                  style: TextStyle(
+                Text(
+                  user?.displayName ?? 'Guest User',
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
@@ -39,9 +43,9 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 8),
 
                 // Email
-                const Text(
-                  'sithijatharuka03@gmail.com',
-                  style: TextStyle(
+                Text(
+                  user?.email ?? 'No email available',
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
                     fontWeight: FontWeight.w400,
@@ -61,7 +65,6 @@ class ProfilePage extends StatelessWidget {
   Column buildAppDetails(BuildContext context) {
     return Column(
       children: [
-        // App info
         const Text(
           'LankaGo v1.0.0',
           style: TextStyle(
@@ -80,7 +83,6 @@ class ProfilePage extends StatelessWidget {
           '© 2025 All Rights Reserved',
           style: TextStyle(fontSize: 12, color: Colors.grey),
         ),
-
         const SizedBox(height: 32),
 
         // Sign Out Button
@@ -88,9 +90,7 @@ class ProfilePage extends StatelessWidget {
           width: double.infinity,
           height: 56,
           child: ElevatedButton(
-            onPressed: () {
-              _showSignOutDialog(context);
-            },
+            onPressed: () => _showSignOutDialog(context),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFF5722),
               foregroundColor: Colors.white,
@@ -125,15 +125,12 @@ class ProfilePage extends StatelessWidget {
           content: const Text('Are you sure you want to sign out?'),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
               child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                // Add your sign out logic here
                 _handleSignOut(context);
               },
               child: const Text(
@@ -148,17 +145,20 @@ class ProfilePage extends StatelessWidget {
   }
 
   void _handleSignOut(BuildContext context) {
-    // Add your sign out logic here
-    // For example:
-    // - Clear user session
-    // - Navigate to login screen
-    // - Clear stored tokens
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Signed out successfully'),
-        backgroundColor: Color(0xFFFF5722),
-      ),
-    );
+    GoogleSignIn()
+        .signOut()
+        .then((_) {
+          return FirebaseAuth.instance.signOut();
+        })
+        .then((_) {
+          // Now safe to use context synchronously
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Signed out successfully'),
+              backgroundColor: Color(0xFFFF5722),
+            ),
+          );
+          Navigator.of(context).pushReplacementNamed('/login');
+        });
   }
 }

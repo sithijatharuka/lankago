@@ -1,175 +1,279 @@
 import 'package:flutter/material.dart';
 import 'package:lankago/features/tripDetailsPage/presentation/pages/trip_details_page.dart';
 
-enum TripStatus { upcoming, completed, canceled }
-
 class TripCard extends StatelessWidget {
-  final String destination;
   final String tripName;
-  final String dates;
-  final int peopleCount;
-  final TripStatus status;
+  final String district;
+  final DateTime startDate;
+  final DateTime endDate;
 
   const TripCard({
     super.key,
-    required this.destination,
     required this.tripName,
-    required this.dates,
-    required this.peopleCount,
-    required this.status,
+    required this.district,
+    required this.startDate,
+    required this.endDate,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[200]!),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header row with destination and status
-          buildHeaderRow(),
-          const SizedBox(height: 8),
-          // Trip name
-          buildTripName(),
-          const SizedBox(height: 8),
-          // Dates
-          buildDate(),
-          const SizedBox(height: 16),
-          // Bottom row with people count and view details
-          buildBottomRow(context),
-        ],
-      ),
-    );
-  }
+    final dates = "${_formatDate(startDate)} - ${_formatDate(endDate)}";
+    final duration = endDate.difference(startDate).inDays + 1;
 
-  Row buildBottomRow(context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Icon(Icons.people, color: Colors.grey[500], size: 20),
-            const SizedBox(width: 8),
-            Text(
-              '$peopleCount People',
-              style: TextStyle(color: Colors.grey[600], fontSize: 16),
-            ),
-          ],
-        ),
-        GestureDetector(
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Material(
+        elevation: 8,
+        borderRadius: BorderRadius.circular(16),
+        shadowColor: Colors.black.withOpacity(0.15),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder:
-                    (context) => const TripDetailsPage(
-                      tripName: 'Family Adventure 2025',
-                      destination: 'Ella, Sri Lanka',
-                      dates: 'July 5 - July 10, 2025',
-                      peopleCount: 3,
+                    (_) => TripDetailsPage(
+                      tripName: tripName,
+                      destination: district,
+                      dates: dates,
+                      peopleCount: 1,
                     ),
               ),
             );
           },
-          child: Row(
-            children: [
-              Text(
-                'View Details',
-                style: TextStyle(
-                  color: Colors.blue[500],
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.white, Colors.blue.shade50.withOpacity(0.3)],
               ),
-              const SizedBox(width: 4),
-              Icon(Icons.arrow_forward_ios, color: Colors.blue[500], size: 16),
-            ],
+              border: Border.all(
+                color: Colors.blue.shade100.withOpacity(0.3),
+                width: 1,
+              ),
+            ),
+            child: Stack(
+              children: [
+                // Background pattern
+                Positioned(
+                  right: -20,
+                  top: -20,
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.shade50.withOpacity(0.3),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 20,
+                  bottom: -10,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.orange.shade100.withOpacity(0.4),
+                    ),
+                  ),
+                ),
+                // Content
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header row with trip name and duration badge
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              tripName,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF1F2937),
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.orange.shade400,
+                                  Colors.orange.shade600,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.orange.withOpacity(0.3),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              '${duration}D',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      // Location row
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade100.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              Icons.location_on_rounded,
+                              size: 16,
+                              color: Colors.blue.shade600,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              district,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.blue.shade700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+
+                      // Dates row
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade100.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              Icons.calendar_month_rounded,
+                              size: 16,
+                              color: Colors.green.shade600,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              dates,
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.green.shade700,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Bottom section with explore button
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.flight_takeoff_rounded,
+                                  size: 16,
+                                  color: Colors.grey.shade600,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'Ready to explore',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade600,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade400,
+                                  Colors.blue.shade600,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.blue.withOpacity(0.3),
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'View Details',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                const Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: 10,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ],
-    );
-  }
-
-  Text buildDate() =>
-      Text(dates, style: TextStyle(fontSize: 16, color: Colors.grey[600]));
-
-  Text buildTripName() {
-    return Text(
-      tripName,
-      style: const TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
       ),
     );
   }
 
-  Row buildHeaderRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          destination,
-          style: TextStyle(
-            color: Colors.orange[600],
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: _getStatusColor(),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text(
-            _getStatusText(),
-            style: TextStyle(
-              color: _getStatusTextColor(),
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Color _getStatusColor() {
-    switch (status) {
-      case TripStatus.upcoming:
-        return Colors.green[100]!;
-      case TripStatus.completed:
-        return Colors.grey[200]!;
-      case TripStatus.canceled:
-        return Colors.red[100]!;
-    }
-  }
-
-  Color _getStatusTextColor() {
-    switch (status) {
-      case TripStatus.upcoming:
-        return Colors.green[700]!;
-      case TripStatus.completed:
-        return Colors.grey[700]!;
-      case TripStatus.canceled:
-        return Colors.red[700]!;
-    }
-  }
-
-  String _getStatusText() {
-    switch (status) {
-      case TripStatus.upcoming:
-        return 'upcoming';
-      case TripStatus.completed:
-        return 'completed';
-      case TripStatus.canceled:
-        return 'canceled';
-    }
+  String _formatDate(DateTime date) {
+    return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
   }
 }

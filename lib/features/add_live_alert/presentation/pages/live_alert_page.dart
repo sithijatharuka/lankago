@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lankago/core/services/firestore_service.dart';
 import 'package:lankago/core/widgets/app_bar.dart';
 import 'package:lankago/features/add_live_alert/presentation/widgets/alert_type_selector.dart';
 import 'package:lankago/features/add_live_alert/presentation/widgets/description_input.dart';
@@ -52,31 +53,42 @@ class _ReportLiveAlertScreenState extends State<ReportLiveAlertScreen> {
             const SizedBox(height: 24),
             DescriptionInput(controller: _descriptionController),
             const SizedBox(height: 32),
-            SubmitButton(isSubmitting: _isSubmitting, onPressed: _handleSubmit),
+            SubmitButton(isSubmitting: _isSubmitting, onPressed: ()=>{}),
           ],
         ),
       ),
     );
   }
 
-  void _handleSubmit() async {
-    if (selectedAlertType == null) {
-      _showSnack('Please select an alert type', Colors.orange);
-      return;
-    }
-    if (_descriptionController.text.trim().isEmpty) {
-      _showSnack('Please provide a description', Colors.orange);
-      return;
-    }
+  // final FirestoreService _firestoreService = FirestoreService();
 
-    setState(() => _isSubmitting = true);
+  // void _handleSubmit() async {
+  //   if (selectedAlertType == null) {
+  //     _showSnack('Please select an alert type', Colors.orange);
+  //     return;
+  //   }
+  //   if (_descriptionController.text.trim().isEmpty) {
+  //     _showSnack('Please provide a description', Colors.orange);
+  //     return;
+  //   }
 
-    await Future.delayed(const Duration(seconds: 2));
+  //   setState(() => _isSubmitting = true);
 
-    setState(() => _isSubmitting = false);
+  //   try {
+  //     await _firestoreService.addAlert(
+  //       selectedAlertType!,
+  //       _descriptionController.text.trim(),
+  //     );
 
-    _showSuccessDialog();
-  }
+  //     setState(() => _isSubmitting = false);
+
+  //     _showSuccessDialog();
+  //   } catch (e) {
+  //     setState(() => _isSubmitting = false);
+  //     _showSnack('Failed to submit alert: $e', Colors.red);
+  //     print('Failed to submit alert: $e');
+  //   }
+  // }
 
   void _showSnack(String message, Color color) {
     ScaffoldMessenger.of(
