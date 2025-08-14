@@ -74,7 +74,7 @@ class _CurrentLocationSectionState extends State<CurrentLocationSection> {
       }
     } catch (e) {
       setState(() {
-        locationText = 'Error getting city: $e';
+        locationText = 'Error getting city';
       });
     }
   }

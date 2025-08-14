@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lankago/features/PlaceDetailsPage/presentation/pages/place_details_page.dart';
+import 'package:lankago/features/PlaceDetailsPage/presentation/pages/place_page.dart';
 
 class PopularAdvItem extends StatelessWidget {
   final String title;
@@ -22,7 +23,7 @@ class PopularAdvItem extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder:
-                (context) => PlaceDetailsPage(
+                (context) => PlaceScreen(
                   place: {'title': title},
                   accentColor: Colors.blue,
                 ),

@@ -5,17 +5,19 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Reference to user's trip plans collection
+  // Getting the Current User’s Trip Plans Collection
   CollectionReference<Map<String, dynamic>> get _tripPlansRef {
     final uid = _auth.currentUser?.uid;
     if (uid == null) throw Exception("User not logged in");
     return _db.collection('users').doc(uid).collection('trip_plans');
   }
 
+  // Listening to Trip Plans in Real Time
   Stream<QuerySnapshot<Map<String, dynamic>>> getTripsStream() {
     return _tripPlansRef.orderBy('createdAt', descending: true).snapshots();
   }
 
+  // Adding a Trip Plan
   Future<void> addTripPlan({
     required String tripName,
     required String district,

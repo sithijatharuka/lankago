@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lankago/features/PlaceDetailsPage/presentation/pages/place_details_page.dart';
+import 'package:lankago/features/PlaceDetailsPage/presentation/pages/place_page.dart';
 
 class FeaturedCard extends StatelessWidget {
   final String title;
@@ -21,7 +22,7 @@ class FeaturedCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder:
-                (context) => PlaceDetailsPage(
+                (context) => PlaceScreen(
                   place: {'title': title},
                   accentColor: Colors.blue,
                 ),

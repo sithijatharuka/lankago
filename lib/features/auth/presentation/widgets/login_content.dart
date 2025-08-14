@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lankago/core/services/auth_service.dart';
-import 'google_signin_button.dart';
 import 'login_title.dart';
 import 'login_subtitle.dart';
 import 'terms_text.dart';
 
 class LoginContent extends StatelessWidget {
-  final VoidCallback onGoogleSignIn;
-  const LoginContent({required this.onGoogleSignIn, super.key});
+  const LoginContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +19,7 @@ class LoginContent extends StatelessWidget {
             const SizedBox(height: 16),
             const LoginSubtitle(),
             const SizedBox(height: 80),
-            // GoogleSignInButton(onPressed: onGoogleSignIn),
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () async {
                 try {
                   await signInWithGoogleAndGoHome(context);
@@ -31,7 +28,18 @@ class LoginContent extends StatelessWidget {
                   print("Error: $e");
                 }
               },
-              child: const Text("Sign in with Google"),
+              icon: Image.asset(
+                'assets/images/icons/google.jpeg',
+                height: 20,
+                width: 20,
+              ),
+              label: const Text("Sign in with Google"),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
             ),
             const SizedBox(height: 40),
             const TermsText(),

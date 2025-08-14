@@ -5,21 +5,21 @@ import 'package:lankago/core/widgets/app_bar.dart';
 import '../widgets/details_section.dart';
 import '../widgets/details_list_section.dart';
 
-class PlaceDetailsPage extends StatefulWidget {
+class PlaceScreen extends StatefulWidget {
   final Map<String, dynamic> place;
   final Color accentColor;
 
-  const PlaceDetailsPage({
+  const PlaceScreen({
     super.key,
     required this.place,
     required this.accentColor,
   });
 
   @override
-  State<PlaceDetailsPage> createState() => _PlaceDetailsPageState();
+  State<PlaceScreen> createState() => _PlaceScreenState();
 }
 
-class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
+class _PlaceScreenState extends State<PlaceScreen> {
   bool loading = true;
   Map<String, dynamic>? placeDetails;
 
@@ -33,7 +33,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
     setState(() => loading = true);
 
     final prompt = '''
-Provide detailed information about "${widget.place['title']}" in ${widget.place['location']}, Sri Lanka.
+Provide detailed information about "${widget.place['title']}" in Sri Lanka.
 Return only JSON with fields: overview, highlights, best_time_to_visit, activities, local_tips, estimated_cost, duration, difficulty, category.
 ''';
 

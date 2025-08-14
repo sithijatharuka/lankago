@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lankago/core/services/trip_service.dart';
 import 'package:lankago/features/my_trips/presentation/widgets/trip_card.dart';
+import 'package:lankago/features/trip_planner/presentation/pages/trip_planner.dart';
 
 class MyTrips extends StatelessWidget {
   const MyTrips({super.key});
@@ -28,7 +29,10 @@ class MyTrips extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.add, color: Colors.blue, size: 24),
             onPressed: () {
-              context.goNamed('/planTrips');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TripPlanner()),
+              );
             },
           ),
         ],
@@ -132,7 +136,10 @@ class MyTrips extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                context.go('/planTrips');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TripPlanner()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,

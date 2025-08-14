@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:go_router/go_router.dart';
-import 'package:lankago/ask.dart';
+import 'package:lankago/core/services/ask.dart';
 import 'package:lankago/features/home/presentation/widgets/button.dart';
 import 'package:lankago/features/home/presentation/widgets/featured_destination_card.dart';
 import 'package:lankago/features/home/presentation/widgets/home_app_bar.dart';

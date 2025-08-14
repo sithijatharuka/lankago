@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:lankago/ask.dart';
+import 'package:lankago/core/services/ask.dart';
 import 'package:lankago/core/services/trip_service.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/budget_es_card.dart';
 import 'package:lankago/features/trip_planner/presentation/widgets/daily_planner_card.dart';
